@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.primary-bg{
+  @apply bg-[#0c1633]
+}
+
+.secondary-bg{
+  @apply bg-[#0f1a3e]
+}
+
+.default-container{
+  @apply w-full max-w-[1200px] mx-auto
+}
