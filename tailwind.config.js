@@ -5,14 +5,7 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
  daisyui: {
-    themes: ["night", {
-      mytheme: {
-         primary: "#a991f7",
-          secondary: "#f6d860",
-          accent: "#37cdbe",
-          neutral: "#3d4451",
-      }
-    } ],
+    themes: ["night"],
   },
    plugins: [require("daisyui")],
 }
