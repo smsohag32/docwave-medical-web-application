@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap');
 
+html{
+  font-family: 'Roboto', sans-serif;
+}
 .primary-bg{
   @apply bg-[#0c1633]
 }
@@ -12,5 +16,5 @@
 }
 
 .default-container{
-  @apply w-full max-w-[1200px] mx-auto
+  @apply max-w-[2520px] mx-auto xl:px-20 md:px-10 sm:px-2 px-4
 }

@@ -4,7 +4,7 @@ import Footer from "../pages/shared/Footer/Footer";
 
 const MainLayouts = () => {
   return (
-    <div>
+    <div className="bg-[#0f172a]">
       <div className="secondary-bg">
         <Navbar />
       </div>
