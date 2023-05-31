@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 
-import Footer from "../pages/shared/Footer/Footer";
 import Nav from "../pages/shared/Header/Nav";
+import FooterDoc from "../pages/shared/Footer/FooterDoc";
 
 const MainLayouts = () => {
   return (
@@ -12,7 +12,7 @@ const MainLayouts = () => {
       <div>
         <Outlet />
       </div>
-      <Footer />
+      <FooterDoc />
     </div>
   );
 };
