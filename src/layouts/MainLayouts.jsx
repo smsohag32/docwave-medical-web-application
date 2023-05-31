@@ -1,12 +1,13 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../pages/shared/Header/Navbar";
+
 import Footer from "../pages/shared/Footer/Footer";
+import Nav from "../pages/shared/Header/Nav";
 
 const MainLayouts = () => {
   return (
-    <div className="bg-[#0f172a]">
-      <div className="secondary-bg">
-        <Navbar />
+    <div>
+      <div>
+        <Nav />
       </div>
       <div>
         <Outlet />

@@ -1,7 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthProvider";
 const Login = () => {
+  const { userSingIn, googleLogin } = useContext(AuthContext);
+  const { loginError, setLoginError } = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -9,85 +17,133 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  // handle login
   const onSubmit = (data) => {
-    console.log(data);
+    const email = data.email;
+    const password = data.password;
+    userSingIn(email, password)
+      .then((result) => {
+        console.log(result);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        if (error.message.includes === "wrong") {
+          setLoginError("Password is not correct");
+        }
+      });
     reset();
   };
+
+  // handle google login
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then()
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  // handle Password reset
+  const handleReset = () => {};
   return (
     <div>
-      <div className="hero h-full bg-base-200">
-        <div className="hero-content flex-col">
-          <div className="text-center lg:text-left"></div>
-          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <form onSubmit={handleSubmit(onSubmit)} className="card-body">
-              <h1 className="text-xl font-bold">Login now!</h1>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
+      <section className="flex flex-col md:flex-row min-h-[50vh] items-center">
+        <div className="bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
+          <img
+            src="https://images.unsplash.com/photo-1516841273335-e39b37888115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=847&q=80"
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        <div
+          className="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
+        flex items-center justify-center"
+        >
+          <div className="w-full h-100">
+            <h1 className="text-xl md:text-2xl font-bold leading-tight mt-12">
+              Log in to your account
+            </h1>
+
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="mt-6"
+              action="#"
+              method="POST"
+            >
+              <div>
+                <label className="block text-gray-700">Email Address</label>
                 <input
-                  type="text"
                   {...register("email", {
                     required: true,
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "invalid email address",
-                    },
                   })}
-                  placeholder="email"
-                  className="input input-bordered"
+                  type="email"
+                  name="email"
+                  placeholder="Enter Email Address"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                  autoFocus
                 />
-                {errors?.email?.message && (
-                  <p className="text-warning">
-                    <small>{errors.email.message}</small>
-                  </p>
-                )}
               </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
+
+              <div className="mt-4">
+                <label className="block text-gray-700">Password</label>
                 <input
-                  type="password"
-                  placeholder="password"
-                  className="input input-bordered"
                   {...register("password", {
                     required: true,
                   })}
+                  type="password"
+                  name="password"
+                  placeholder="Enter Password"
+                  minLength="6"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
+                focus:bg-white focus:outline-none"
                 />
-                {errors?.password && (
-                  <p className="text-warning">
-                    <small>Field is empty</small>
-                  </p>
-                )}
-                <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
-                  </a>
-                </label>
               </div>
-              <div className="form-control">
-                <p>
-                  <small>
-                    Don't have an account{" "}
-                    <Link className="link link-success" to="/singUp">
-                      Sing up
-                    </Link>
-                  </small>
-                </p>
-              </div>
-              <div className="form-control mt-6">
+
+              <div className="text-right mt-2">
                 <button
-                  type="submit"
-                  className="btn btn-primary btn-outline btn-sm"
+                  onClick={handleReset}
+                  className="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700"
                 >
-                  Login
+                  Forgot Password?
                 </button>
               </div>
+
+              <button
+                type="submit"
+                className="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg
+              px-4 py-3 mt-6"
+              >
+                Log In
+              </button>
             </form>
+
+            <hr className="my-6 border-gray-300 w-full" />
+
+            <button
+              type="button"
+              onClick={handleGoogleLogin}
+              className="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-lg px-4 py-3 border border-gray-300"
+            >
+              <div className="flex items-center justify-center">
+                <FcGoogle />
+                <span className="ml-4">Log in with Google</span>
+              </div>
+            </button>
+
+            <p className="mt-8">
+              Need an account?{" "}
+              <Link
+                to="/singup"
+                className="text-blue-500 hover:text-blue-700 font-semibold"
+              >
+                Create an account
+              </Link>
+            </p>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

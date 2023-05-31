@@ -16,11 +16,11 @@ const routes = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/login",
+        path: "/singin",
         element: <Login />,
       },
       {
-        path: "/singUp",
+        path: "/singup",
         element: <SingUp />,
       },
       {

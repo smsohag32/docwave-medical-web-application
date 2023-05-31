@@ -1,5 +1,6 @@
+import { Tabs } from "flowbite-react";
 import doctor from "../../../assets/image.webp";
-import Tabs from "./Tabs";
+
 const Services = () => {
   return (
     <div className="grid items-center pt-12 default-container md:grid-cols-2 gap-3">
@@ -8,15 +9,20 @@ const Services = () => {
       </div>
       <div className="space-y-3">
         <h2 className="tex-3xl md:text-5xl text-center">Our Services</h2>
-        <p className="ms-4 opacity-50">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta
-          quibusdam aperiam veniam cupiditate eaque nisi quia eligendi quod quo
-          nulla nemo unde magni, perspiciatis vero, dolores consequatur repellat
-          hic praesentium.
-        </p>
+        <p className="ms-4 opacity-50"></p>
 
         <div>
-          <Tabs />
+          <Tabs.Group aria-label="Default tabs" style="default">
+            <Tabs.Item active title="Profile">
+              Profile content
+            </Tabs.Item>
+            <Tabs.Item title="Dashboard">Dashboard content</Tabs.Item>
+            <Tabs.Item title="Settings">Settings content</Tabs.Item>
+            <Tabs.Item title="Contacts">Contacts content</Tabs.Item>
+            <Tabs.Item disabled title="Disabled">
+              Disabled content
+            </Tabs.Item>
+          </Tabs.Group>
         </div>
       </div>
     </div>
