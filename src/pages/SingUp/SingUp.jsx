@@ -1,9 +1,16 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
+
 import { useState } from "react";
+import { imageUpload } from "../../utils/imageUpload";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthProvider";
+import { toast } from "react-toastify";
+import SocialLogin from "../../components/Services/Services/Shared/SocialLogin/SocialLogin";
+
 const SingUp = () => {
+  const { userCreate, logOut, updateInfo } = useContext(AuthContext);
   const [singUpError, setSingUpError] = useState("");
   const {
     register,
@@ -15,11 +22,48 @@ const SingUp = () => {
   // handle login
   const onSubmit = (data) => {
     console.log(data);
-    reset();
+    const { name, email, image, password } = data;
+    const imageFile = image[0];
+
+    // image url save and get url
+    imageUpload(imageFile).then((data) => {
+      const imageUrl = data.data.display_url;
+      const newUser = {
+        name,
+        email,
+        image: imageUrl,
+      };
+      userCreate(email, password)
+        .then((result) => {
+          fetch(`http://localhost:5000/users/${email}`, {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(newUser),
+          })
+            .then((res) => res.json())
+            .then(() => {
+              // update user photo and name
+              updateInfo(name, imageUrl)
+                .then(() => {
+                  // form reset and logout
+                  logOut();
+                  reset();
+                  toast("account create successfully");
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            });
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+      console.log(newUser);
+    });
   };
 
-  // handle Password reset
-  const handleReset = () => {};
   return (
     <div>
       <section
@@ -83,7 +127,14 @@ const SingUp = () => {
                   <span className="mt-2 text-base leading-normal">
                     Upload your photo
                   </span>
-                  <input type="file" accept="image/*" className="hidden" />
+                  <input
+                    {...register("image", {
+                      required: true,
+                    })}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                  />
                 </label>
               </div>
 
@@ -120,16 +171,7 @@ const SingUp = () => {
             </form>
 
             <hr className="my-6 border-gray-300 w-full" />
-
-            <button
-              type="button"
-              className="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-lg px-4 py-3 border border-gray-300"
-            >
-              <div className="flex items-center justify-center">
-                <FcGoogle />
-                <span className="ml-4">Log in with Google</span>
-              </div>
-            </button>
+            <SocialLogin />
 
             <p className="mt-8">
               Already have an account?

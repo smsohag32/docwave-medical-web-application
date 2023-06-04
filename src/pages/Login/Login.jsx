@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
+import SocialLogin from "../../components/Services/Services/Shared/SocialLogin/SocialLogin";
 const Login = () => {
   const { userSingIn, googleLogin } = useContext(AuthContext);
   const { loginError, setLoginError } = useState("");
@@ -35,14 +36,6 @@ const Login = () => {
   };
 
   // handle google login
-
-  const handleGoogleLogin = () => {
-    googleLogin()
-      .then()
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   // handle Password reset
   const handleReset = () => {};
@@ -121,19 +114,10 @@ const Login = () => {
 
             <hr className="my-6 border-gray-300 w-full" />
 
-            <button
-              type="button"
-              onClick={handleGoogleLogin}
-              className="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-lg px-4 py-3 border border-gray-300"
-            >
-              <div className="flex items-center justify-center">
-                <FcGoogle />
-                <span className="ml-4">Log in with Google</span>
-              </div>
-            </button>
+            <SocialLogin />
 
             <p className="mt-8">
-              Need an account?{" "}
+              Need an account?
               <Link
                 to="/singup"
                 className="text-blue-500 hover:text-blue-700 font-semibold"
