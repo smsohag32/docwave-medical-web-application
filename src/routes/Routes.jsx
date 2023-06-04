@@ -9,6 +9,7 @@ import Dashboard from "../layouts/Dashboard";
 import DHome from "../pages/Dashboard/shared/DHome";
 import ManageItems from "../pages/Dashboard/AdminDashboard/ManageItems";
 import CreateItems from "../pages/Dashboard/AdminDashboard/CreateItems";
+import Doctors from "../pages/Doctors/Doctors/Doctors";
 
 const routes = createBrowserRouter([
   {
@@ -18,6 +19,11 @@ const routes = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "doctors",
+        element: <Doctors />,
+        loader: () => fetch(`${import.meta.env.VITE_API_LINK}/totaldoctors`),
       },
       {
         path: "/singin",

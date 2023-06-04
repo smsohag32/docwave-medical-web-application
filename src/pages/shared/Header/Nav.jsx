@@ -28,7 +28,7 @@ const Nav = () => {
       </NavLink>
       <NavLink
         className={({ isActive }) => (isActive ? "primary-text" : "")}
-        to="/stores"
+        to="/doctors"
       >
         Doctors
       </NavLink>
