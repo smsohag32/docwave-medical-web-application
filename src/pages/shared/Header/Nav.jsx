@@ -12,34 +12,7 @@ const Nav = () => {
   };
 
   // nav link
-  const linkItems = (
-    <>
-      <NavLink
-        className={({ isActive }) => (isActive ? "primary-text" : "")}
-        to="/"
-      >
-        Home
-      </NavLink>
-      <NavLink
-        className={({ isActive }) => (isActive ? "primary-text" : "")}
-        to="/stores"
-      >
-        Medicine Store
-      </NavLink>
-      <NavLink
-        className={({ isActive }) => (isActive ? "primary-text" : "")}
-        to="/doctors"
-      >
-        Doctors
-      </NavLink>
-      <NavLink
-        className={({ isActive }) => (isActive ? "primary-text" : "")}
-        to="/forums"
-      >
-        Health Forum
-      </NavLink>
-    </>
-  );
+  const linkItems = <></>;
   return (
     <div>
       <Navbar fluid rounded>
@@ -87,7 +60,32 @@ const Nav = () => {
           )}
           <Navbar.Toggle />
         </div>
-        <Navbar.Collapse>{linkItems}</Navbar.Collapse>
+        <Navbar.Collapse>
+          <NavLink
+            className={({ isActive }) => (isActive ? "primary-text" : "")}
+            to="/"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            className={({ isActive }) => (isActive ? "primary-text" : "")}
+            to="/stores"
+          >
+            Medicine Store
+          </NavLink>
+          <NavLink
+            className={({ isActive }) => (isActive ? "primary-text" : "")}
+            to="/doctors"
+          >
+            Doctors
+          </NavLink>
+          <NavLink
+            className={({ isActive }) => (isActive ? "primary-text" : "")}
+            to="/forums"
+          >
+            Health Forum
+          </NavLink>
+        </Navbar.Collapse>
       </Navbar>
     </div>
   );

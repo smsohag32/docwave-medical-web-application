@@ -6,10 +6,12 @@ import SingUp from "../pages/SingUp/SingUp";
 import CreateService from "../pages/CreateService/CreateService";
 import CreateProducts from "../pages/CreateProduct/CreateProducts";
 import Dashboard from "../layouts/Dashboard";
-import DHome from "../pages/Dashboard/shared/DHome";
 import ManageItems from "../pages/Dashboard/AdminDashboard/ManageItems";
 import CreateItems from "../pages/Dashboard/AdminDashboard/CreateItems";
 import Doctors from "../pages/Doctors/Doctors/Doctors";
+import AdminHome from "../pages/Dashboard/AdminDashboard/AdminHome";
+import UserHome from "../pages/Dashboard/UserDashboard/UserHome";
+import UserAppointment from "../pages/Dashboard/UserDashboard/UserAppointment";
 
 const routes = createBrowserRouter([
   {
@@ -48,9 +50,18 @@ const routes = createBrowserRouter([
     element: <Dashboard />,
     children: [
       {
-        path: "/dashboard",
-        element: <DHome />,
+        path: "adminhome",
+        element: <AdminHome />,
       },
+      {
+        path: "userhome",
+        element: <UserHome />,
+      },
+      {
+        path: "myappointment",
+        element: <UserAppointment />,
+      },
+
       {
         path: "/dashboard/manageitems",
         element: <ManageItems></ManageItems>,
