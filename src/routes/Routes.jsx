@@ -12,6 +12,7 @@ import Doctors from "../pages/Doctors/Doctors/Doctors";
 import AdminHome from "../pages/Dashboard/AdminDashboard/AdminHome";
 import UserHome from "../pages/Dashboard/UserDashboard/UserHome";
 import UserAppointment from "../pages/Dashboard/UserDashboard/UserAppointment";
+import PrivateRoute from "./PrivateRoute";
 
 const routes = createBrowserRouter([
   {
@@ -47,7 +48,11 @@ const routes = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Dashboard />,
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "adminhome",
